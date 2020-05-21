@@ -32,7 +32,7 @@ async (req, res) => {
         res.json(post);
     } catch (error) {
         console.log(error);
-        res.status(500).json({Message: "Error"});
+        res.status(500).json({Message: "Server Error"});
     }
 });
 
@@ -44,7 +44,7 @@ router.get("/post",
     res.json(posts);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error");
+    res.status(500).json({Message: "Server Error"});
   }
 });
 
@@ -83,7 +83,7 @@ router.delete("/post/:id",
     res.json({ Message: "Post successfully removed" });
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error");
+    res.status(500).json({Message: "Server Error"});
   }
 });
 
@@ -108,7 +108,7 @@ checkObjectId,
     return res.json(post.likes);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error");
+    res.status(500).json({Message: "Server Error"});
   }
 });
 
@@ -121,7 +121,7 @@ checkObjectId,
 
     // Check if the post has already been liked
     if (!post.likes.some((like) => like.user.toString() === req.user.id)) {
-      return res.status(400).json({ Message: "Post has no likes" });
+      return res.status(400).json({ Message: "Post has no likes"});
     }
     // remove the like
     post.likes = post.likes.filter(
@@ -133,7 +133,7 @@ checkObjectId,
     return res.json(post.likes);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error");
+    res.status(500).json({Message: "Server Error"});
   }
 });
 
@@ -168,7 +168,7 @@ router.post("/comment/:id",
       res.json(post.comments);
     } catch (error) {
         console.log(error);
-      res.status(500).send("Error");
+      res.status(500).json({Message: "Server Error"});
     }
   }
 );
@@ -201,7 +201,7 @@ router.delete("/comment/:id/:comment_id",
     return res.json(post.comments);
   } catch (error) {
     console.log(error);
-    return res.status(500).send("Error");
+    return res.status(500).json({Message: "Server Error"});
   }
 });
 

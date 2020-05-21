@@ -55,11 +55,11 @@ router.post("/",
         user: req.user.id,
         company,
         location,
-        website: website === '' ? '' : normalize(website, { forceHttps: true }),
+        website: website === "" ? "" : normalize(website, { forceHttps: true }),
         bio,
         skills: Array.isArray(skills)
           ? skills
-          : skills.split(",").map((skill) => ' ' + skill.trim()),
+          : skills.split(",").map((skill) => " " + skill.trim()),
         status
 
       };
@@ -83,7 +83,7 @@ router.post("/",
         res.json(profile);
       } catch (error) {
         console.log(error);
-        res.status(500).send("Error");
+        res.status(500).json({Message: "Server Error"});
       }
     }
   );
@@ -95,7 +95,7 @@ router.post("/",
       res.json(profiles);
     } catch (error) {
       console.log(error);
-      res.status(500).send("Error");
+      res.status(500).json({Message: "Server Error"});
     }
   });
   
@@ -110,12 +110,14 @@ router.post("/",
         user: user_id
       }).populate("user", ["name", "avatar"]);
   
-      if (!profile) return res.status(404).json({ Message: "Profile not found" });
+      if (!profile) {
+        return res.status(404).json({ Message: "Profile not found" })
+      };
   
       return res.json(profile);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ Message: "Error" });
+      return res.status(500).json({ Message: "Server Error" });
     }
   });
   
@@ -134,7 +136,7 @@ router.post("/",
       res.json({ Message: "User deleted" });
     } catch (error) {
       console.error(error);
-      res.status(500).send("Error");
+      res.status(500).json({Message: "Server Error"});
     }
   });
   
@@ -183,7 +185,7 @@ router.post("/",
         res.json(profile);
       } catch (error) {
         console.log(error);
-        res.status(500).send("Error");
+        res.status(500).json({Message: "Server Error"});
       }
     }
   );
@@ -203,7 +205,7 @@ router.post("/",
       return res.status(200).json(foundProfile);
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ Message: "Error" });
+      return res.status(500).json({ Message: "Server Error" });
     }
   });
   
@@ -253,7 +255,7 @@ router.post("/",
         res.json(profile);
       } catch (error) {
         console.log(error);
-        res.status(500).send("Error");
+        res.status(500).json({Message: "Server Error"});
       }
     }
   );
@@ -270,7 +272,7 @@ router.post("/",
       return res.status(200).json(foundProfile);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({ Message: "Error" });
+      return res.status(500).json({ Message: "Server Error" });
     }
   });
   

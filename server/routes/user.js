@@ -30,7 +30,7 @@ router.post("/signup",
     try {
         let user = await User.findOne({email});
         if(user){
-            return res.status(400).json({Message: "User already exists please sign in"});
+            return res.status(400).json({Message: "Email in use."});
         }
 
         const avatar = normalize(
@@ -58,7 +58,7 @@ router.post("/signup",
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({Message: "Error"});
+        res.status(500).json({Message: "Server Error"});
     }
 });
 

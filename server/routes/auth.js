@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/signin", 
 [
     check("email", "Email is required").isEmail(),
-    check("password", "Password is requred").notEmpty()
+    check("password", "Password is required").notEmpty()
 ],
  async(req,res) => {
 
@@ -42,11 +42,11 @@ const {email, password} = req.body;
 
 
         const token = jwt.sign(Payload, secret);
-        res.cookie("t", token, {expire: new Date() + 9999});
+        res.cookie("t", token, {expire: new Date() + 3600});
         return res.status(200).json({token, user});
     } catch (error) {
         console.log(error);
-        res.status(500).json({Message: "Error"});
+        res.status(500).json({Message: "Server Error"});
     }
 });
 
@@ -57,7 +57,7 @@ router.get("/logout",(req,res) => {
          res.json({Message: "Logged out"})
     } catch (error) {
         console.log(error);
-        res.status(500).json({Message: "Error"});
+        res.status(500).json({Message: "Server Error"});
     }
 });
 

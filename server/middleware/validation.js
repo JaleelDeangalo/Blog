@@ -1,11 +1,9 @@
 const jwt = require("jsonwebtoken");
 const secret = require("../config/db").jwtSecret;
 
+ const auth = ( req, res, next ) => {
 
-
-const auth = (req,res,next) => {
-
-    const token = req.header("x-auth-token");
+    const token = request.header("x-auth-token");
 
     if(!token){
         return res.status(401).json({Message: "No, Token Access Denied"});
@@ -27,11 +25,11 @@ const auth = (req,res,next) => {
 };
 
 
-const admin = (req,res,next) => {
+ const admin = ( req, res, next ) => {
     if(req.profile.role === 0){
         return res.status(403).json({Message: "Not Authorized"});
     }
+    next();
 }
 
-
-module.exports = {auth}, {admin};
+module.exports = {auth},{admin};
